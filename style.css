@@ -50,3 +50,28 @@ main {
     margin-top: 20px;
     text-align: left;
 }
+
+/* ======================================================= */
+/* CUSTOMIZAÇÃO DO WIDGET DE CHAT DO N8N                   */
+/* ======================================================= */
+
+:root {
+    /* Aumenta a largura e a altura da janela do chat */
+    --chat--window--width: 500px;
+    --chat--window--height: 75vh;
+
+    /* Personaliza as cores para combinar com a GenAI Seguros */
+    --chat--color-primary: #002b5e;
+    --chat--color-secondary: #0056b3;
+}
+
+/* Força o alinhamento do texto à esquerda para anular o center do body */
+body > div {
+    text-align: left !important;
+}
+
+/* Garante que as mensagens e tabelas fiquem bem formatadas */
+.chat-message {
+    text-align: left !important;
+    line-height: 1.5;
+}
