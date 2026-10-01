@@ -79,6 +79,7 @@ Memória definida em cinco contextos.
 ## Workflow 3 - Upload de apólices
 
 Carregamento de arquivos `.pdf`, `.jpeg`, `.png` e `.tiff` para a pasta `Entrada` o Google Drive.
+O nó `Code in JavaScript` seleciona o nome do arquivo dentro do `.json` recebido e associa com o seu respectivo arquivo, para upload no Google Drive.
 
 ![workflow3](img/workflow03_pt.png)
 
