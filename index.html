@@ -55,9 +55,14 @@
         }
 
         // Inicializa o Chat do n8n com a URL do Webhook
+        // Inicializa o Chat do n8n com a URL do Webhook e personaliza a saudação
         if (AppConfig.n8nWebhookUrl) {
             createChat({
-                webhookUrl: AppConfig.n8nWebhookUrl
+                webhookUrl: AppConfig.n8nWebhookUrl,
+                initialMessages: [
+                    "Olá! 👋 Sou o assistente especialista em D&O da GenAI Seguros.",
+                    "Como posso ajudar você a consultar ou comparar nossas apólices hoje?"
+                ]
             });
         } else {
             console.error("URL do Webhook do n8n não configurada no config.js");
