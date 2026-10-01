@@ -4,13 +4,14 @@
     {
       "parameters": {
         "formTitle": "GenAI Seguros - Upload de Apólice",
-        "formDescription": "Envie o arquivo da apólice (PDF, PNG ou JPG) para processamento seguro.",
+        "formDescription": "Envie os arquivos das apólices (PDF, PNG ou JPG) para processamento seguro.",
         "formFields": {
           "values": [
             {
               "fieldLabel": "Documento",
               "fieldType": "file",
-              "requiredField": true
+              "requiredField": true,
+              "multiselect": true
             }
           ]
         },
@@ -27,6 +28,19 @@
     },
     {
       "parameters": {
+        "jsCode": "const newItems = [];\n\nfor (const item of $input.all()) {\n  if (item.binary) {\n    for (const key of Object.keys(item.binary)) {\n      if (key.startsWith('Documento')) {\n        newItems.push({\n          json: { fileName: item.binary[key].fileName },\n          binary: { data: item.binary[key] }\n        });\n      }\n    }\n  }\n}\n\nreturn newItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "split-files",
+      "name": "Separar Arquivos"
+    },
+    {
+      "parameters": {
         "operation": "upload",
         "driveId": {
           "__rl": true,
@@ -38,14 +52,14 @@
           "value": "COLE_O_ID_DA_PASTA_ENTRADA_AQUI",
           "mode": "id"
         },
-        "fileContent": "documento",
-        "name": "={{ $binary.documento.fileName }}",
+        "fileContent": "data",
+        "name": "={{ $binary.data.fileName }}",
         "options": {}
       },
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        220,
+        440,
         0
       ],
       "id": "google-drive",
@@ -54,6 +68,17 @@
   ],
   "connections": {
     "n8n Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Separar Arquivos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Separar Arquivos": {
       "main": [
         [
           {
