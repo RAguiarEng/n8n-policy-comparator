@@ -1,0 +1,68 @@
+{
+  "name": "GenAI Seguros - Upload de Apólices",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "GenAI Seguros - Upload de Apólice",
+        "formDescription": "Envie o arquivo da apólice (PDF, PNG ou JPG) para processamento seguro.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Documento",
+              "fieldType": "file",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "form-trigger",
+      "name": "n8n Form Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "driveId": {
+          "__rl": true,
+          "value": "myDrive",
+          "mode": "list"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "COLE_O_ID_DA_PASTA_ENTRADA_AQUI",
+          "mode": "id"
+        },
+        "fileContent": "documento",
+        "name": "={{ $binary.documento.fileName }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        220,
+        0
+      ],
+      "id": "google-drive",
+      "name": "Google Drive Upload"
+    }
+  ],
+  "connections": {
+    "n8n Form Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Drive Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
