@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsurMinds - Comparador de Apólices D&O</title>
+
+    <!-- Importa o CSS customizado -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Importa o CSS oficial do chat do n8n -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>InsurMinds</h1>
+        <p>Plataforma Inteligente para Análise e Comparação de Apólices D&O</p>
+    </header>
+
+    <main>
+        <div class="instructions">
+            <h2>Bem-vindo ao Assistente Virtual</h2>
+            <p>Esta ferramenta permite a ingestão, extração e comparação de apólices de seguro D&O utilizando Inteligência Artificial.</p>
+
+            <h3>Como utilizar:</h3>
+            <ol>
+                <li><strong>Ingestão:</strong> Faça o upload do documento (PDF ou Imagem) na nossa pasta segura.</li>
+                <li><strong>Processamento:</strong> Aguarde alguns instantes enquanto nossa IA extrai os dados estruturados.</li>
+                <li><strong>Comparação:</strong> Utilize o chat no canto inferior direito para fazer perguntas e comparar as apólices processadas.</li>
+            </ol>
+        </div>
+
+        <!-- O link deste botão será preenchido dinamicamente pelo JavaScript -->
+        <a id="upload-btn" href="#" class="upload-btn" target="_blank">
+            Fazer Upload de Nova Apólice
+        </a>
+    </main>
+
+    <!-- 1. Importa o arquivo de variáveis de configuração -->
+    <script src="config.js"></script>
+
+    <!-- 2. Script para inicializar a página e o chat dinamicamente -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
+
+        // Injeta o link do Google Drive no botão
+        const uploadBtn = document.getElementById('upload-btn');
+        if (AppConfig.googleDriveUrl && AppConfig.googleDriveUrl !== "") {
+            uploadBtn.href = AppConfig.googleDriveUrl;
+        } else {
+            uploadBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert("Por favor, configure o link do Google Drive no arquivo config.js");
+            });
+        }
+
+        // Inicializa o Chat do n8n com a URL do Webhook
+        if (AppConfig.n8nWebhookUrl) {
+            createChat({
+                webhookUrl: AppConfig.n8nWebhookUrl
+            });
+        } else {
+            console.error("URL do Webhook do n8n não configurada no config.js");
+        }
+    </script>
+</body>
+</html>
