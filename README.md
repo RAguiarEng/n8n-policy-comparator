@@ -76,6 +76,12 @@ Memória definida em cinco contextos.
 
 ![workflow2](img/workflow02_pt.png)
 
+## Workflow 3 - Upload de apólices
+
+Carregamento de arquivos `.pdf`, `.jpeg`, `.png` e `.tiff` para a pasta `Entrada` o Google Drive.
+
+![workflow3](img/workflow03_pt.png)
+
 ---
 
 ## 🧠 Justificativas Arquiteturais
