@@ -13,7 +13,7 @@
 </head>
 <body>
     <header>
-        <h1>InsurMinds</h1>
+        <h1>GenAI Seguros</h1>
         <p>Plataforma Inteligente para Análise e Comparação de Apólices D&O</p>
     </header>
 
@@ -41,32 +41,40 @@
 
     <!-- 2. Script para inicializar a página e o chat dinamicamente -->
     <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
 
-        // Injeta o link do Google Drive no botão
-        const uploadBtn = document.getElementById('upload-btn');
-        if (AppConfig.googleDriveUrl && AppConfig.googleDriveUrl !== "") {
-            uploadBtn.href = AppConfig.googleDriveUrl;
-        } else {
-            uploadBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert("Por favor, configure o link do Google Drive no arquivo config.js");
-            });
-        }
+    // Injeta o link do Google Drive no botão
+    const uploadBtn = document.getElementById('upload-btn');
+    if (AppConfig.googleDriveUrl && AppConfig.googleDriveUrl !== "") {
+        uploadBtn.href = AppConfig.googleDriveUrl;
+    } else {
+        uploadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert("Por favor, configure o link do Google Drive no arquivo config.js");
+        });
+    }
 
-        // Inicializa o Chat do n8n com a URL do Webhook
-        // Inicializa o Chat do n8n com a URL do Webhook e personaliza a saudação
-        if (AppConfig.n8nWebhookUrl) {
-            createChat({
-                webhookUrl: AppConfig.n8nWebhookUrl,
-                initialMessages: [
-                    "Olá! 👋 Sou o assistente especialista em D&O da GenAI Seguros.",
-                    "Como posso ajudar você a consultar ou comparar nossas apólices hoje?"
-                ]
-            });
-        } else {
-            console.error("URL do Webhook do n8n não configurada no config.js");
-        }
+    // Inicializa o Chat do n8n com UI/UX otimizado
+    if (AppConfig.n8nWebhookUrl) {
+        createChat({
+            webhookUrl: AppConfig.n8nWebhookUrl,
+            initialMessages: [
+                "Olá! 👋 Somos a GenAI Seguros.",
+                "Como podemos te ajudar a comparar apólices D&O hoje?"
+            ],
+            i18n: {
+                en: {
+                    title: 'GenAI Seguros',
+                    subtitle: 'Assistente Especialista em D&O',
+                    chatInputPlaceholder: 'Digite sua pergunta aqui...',
+                    getStarted: 'Iniciar Conversa',
+                    footer: 'Projeto Final - InsurMinds'
+                }
+            }
+        });
+    } else {
+        console.error("URL do Webhook do n8n não configurada no config.js");
+    }
     </script>
 </body>
 </html>
