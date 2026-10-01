@@ -1,0 +1,455 @@
+{
+  "name": "InsurMinds - Processamento de Apólices D&O",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1yE3BvH-YXMCW7OEFJLVxHxbiVllfjeMo",
+          "mode": "id"
+        },
+        "event": "fileCreated",
+        "options": {
+          "fileType": "all"
+        }
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        -112
+      ],
+      "id": "c4476a8e-5365-4502-907a-3a9b7a00ff34",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "XtwdLk59XP3fLhMu",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "eb569553-cd95-438b-9db8-c66fca9ce8bc",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "application/pdf",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "045f4429-5f5e-4722-ad1b-357d3a97f7ce",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "image/jpeg",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "55313556-5509-46ac-a8fc-33321c43db95",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "image/png",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "681018f4-8b5e-4d03-a36e-d5983f2ec5f2",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "image/tiff",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "785bb8bc-d7c2-4eee-a20a-41275a75f713",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        32
+      ],
+      "id": "972004c1-d1cd-4f3b-96c8-00e24b4e91da",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Google Drive Trigger').item.json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -32,
+        -176
+      ],
+      "id": "fcf8b30b-d091-4ce6-a269-9f441099f5f6",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "XtwdLk59XP3fLhMu",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.ocr.space/parse/image",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "data",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        192,
+        -176
+      ],
+      "id": "d1b5d745-ce64-4ac9-93ca-6515f659ac26",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "6OTko2mxJeKnvcSK",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Percorre TODOS os itens que chegaram neste lote\nfor (const item of $input.all()) {\n  let textoCompleto = \"\";\n  const resultados = item.json.ParsedResults;\n\n  // Verifica se existem resultados e junta o texto de cada página\n  if (resultados && Array.isArray(resultados)) {\n    for (const pagina of resultados) {\n      if (pagina.ParsedText) {\n        textoCompleto += pagina.ParsedText + \"\\n\\n\";\n      }\n    }\n  }\n\n  // Adiciona o texto extraído ao item atual. \n  // Isso preserva a \"memória\" do n8n sobre qual arquivo gerou este texto!\n  item.json.texto_extraido = textoCompleto.trim();\n}\n\n// Retorna todos os itens processados\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        -176
+      ],
+      "id": "778abe34-d76a-4d74-b74d-6810abbfe6fa",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=   Você é um especialista em seguros D&O. Sua tarefa é extrair as informações solicitadas a partir do texto fornecido.\n   Se a informação não estiver presente no texto, preencha o campo com \"Não encontrado\". Não invente informações.\n   Retorne o resultado estritamente em formato JSON.\n\n   Texto do documento:\n   {{ $json.texto_extraido }}",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        688,
+        -176
+      ],
+      "id": "57737a2a-fffe-47a4-83f9-32e746b59e12",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "options": {
+          "responseFormat": "json_object",
+          "temperature": 0,
+          "maxRetries": 3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        688,
+        16
+      ],
+      "id": "f6444615-2c6a-411d-bdee-3c0dbec34e45",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "L6Fl5n5qgKqRZOIa",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "   {\n     \"Seguradora\": \"Nome da seguradora\",\n     \"Segurado\": \"Nome da empresa ou pessoa segurada\",\n     \"Limite_Indenizacao\": \"Valor do limite máximo de indenização (LMI)\",\n     \"Vigencia\": \"Período de vigência da apólice\"\n   }"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        832,
+        16
+      ],
+      "id": "4b24c918-3170-4142-80f4-ec5409c26a6b",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1633J_K1YpxSjRVgvMSHs1CbC4rHgR65LMYuKodBEhcw",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Dados"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Arquivo": "={{ $('Google Drive Trigger').item.json.name }}",
+            "Seguradora": "={{ $json.output.Segurado }}",
+            "Segurado": "={{ $json.output.Segurado }}",
+            "Limite_Indenizacao": "={{ $json.output.Limite_Indenizacao }}",
+            "Vigencia": "={{ $json.output.Vigencia }}"
+          },
+          "matchingColumns": [
+            "Arquivo"
+          ],
+          "schema": [
+            {
+              "id": "Arquivo",
+              "displayName": "Arquivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Seguradora",
+              "displayName": "Seguradora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Segurado",
+              "displayName": "Segurado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Limite_Indenizacao",
+              "displayName": "Limite_Indenizacao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Vigencia",
+              "displayName": "Vigencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1072,
+        -176
+      ],
+      "id": "83a66815-d823-4c3a-a1df-d2c5b5ff382d",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCMapW0V8PQYwNFL",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f6a255ff-46fd-4587-b6f8-71e79fb4cf0b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "IVwCwDeVeyfbSs9v",
+  "tags": []
+}

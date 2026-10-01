@@ -1,0 +1,159 @@
+{
+  "name": "InsurMinds - Assistente de Comparação D&O",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "mode": "webhook",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -432,
+        -32
+      ],
+      "id": "6d74300c-9254-450e-983c-0597a9d54d3c",
+      "name": "When chat message received",
+      "webhookId": "49bf4279-6103-44a8-8d04-044e44d773f2"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "   Você é um assistente especialista em seguros D&O da plataforma InsurMinds. \n   Sua função é ajudar o usuário a consultar e comparar apólices de seguro.\n   Você tem acesso a uma ferramenta do Google Sheets que contém a base de dados das apólices processadas.\n   Sempre que o usuário perguntar sobre apólices, seguradoras, limites ou vigências, OBRIGATORIAMENTE use a sua ferramenta para ler a base de dados antes de responder.\n   Baseie sua resposta APENAS nos dados retornados pela ferramenta. Se a base estiver vazia ou o dado for \"Não encontrado\", informe isso ao usuário.\n   Responda de forma clara, profissional e em português."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -144,
+        -32
+      ],
+      "id": "85019aa8-f1be-4ded-ac27-c785277a77ee",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        176
+      ],
+      "id": "ce334be1-6e90-42dc-a656-60ac54f58902",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "L6Fl5n5qgKqRZOIa",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        -80,
+        176
+      ],
+      "id": "d9bca6f1-9505-47ee-8f37-6f0fa0fc2ff5",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1633J_K1YpxSjRVgvMSHs1CbC4rHgR65LMYuKodBEhcw",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Dados",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        64,
+        176
+      ],
+      "id": "fdca964a-0043-4566-9f08-7760deaf94e3",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xCMapW0V8PQYwNFL",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "babd8a1c-a327-4ef0-b1cb-420ec596ae78",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+  },
+  "nodeGroups": [],
+  "id": "BdncdsnRqf9HUUuX",
+  "tags": []
+}
