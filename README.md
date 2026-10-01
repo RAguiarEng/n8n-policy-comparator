@@ -12,6 +12,18 @@
 
 ---
 
+## 👥 Integrantes do Grupo
+
+| Nome	| E-mail |
+| --- | --- |
+| Bruno Corrêa	| correabruno321@gmail.com |
+| [Jhiovana Silva Ribeiro](https://github.com/jhsribeiro)	| jhiovanasilva11@gmail.com |
+| Luis R G Pereira	| luisrgpereira@gmail.com |
+| [Rodrigo Medeiros Costa](https://github.com/rodrigomdc)	| eng.rodrigomdc@gmail.com |
+| [Rodrigo Souza Aguiar](https://github.com/RAguiarEng)	| rodrigo_souza_aguiar@hotmail.com |
+
+---
+
 ## 📖 Descrição do Projeto
 
 O **GenAI Seguros** é um protótipo funcional (MVP) baseado em Inteligência Artificial Generativa, desenvolvido para automatizar a extração, organização e comparação de informações presentes em apólices de seguro D&O (*Directors and Officers*). 
@@ -46,6 +58,18 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 - **Armazenamento e Banco de Dados:** Google Drive e Google Sheets
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
 - **Hospedagem Web:** GitHub Pages
+
+---
+
+## [![n8n](https://shields.io)](https://n8n.io/) Workflows
+
+### Workflow 1 -- Processamento de Apólices D&O
+
+![workflow1](img/workflow01_pt.png)
+
+### Worflow 2 -- Assistente de Comparação D&O
+
+![workflow2](img/workflow02_pt.png)
 
 ---
 
@@ -93,17 +117,6 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ---
 
-## 👥 Integrantes do Grupo
-
-| Nome	| E-mail |
-| --- | --- |
-| Bruno Corrêa	| correabruno321@gmail.com |
-| [Jhiovana Silva Ribeiro](https://github.com/jhsribeiro)	| jhiovanasilva11@gmail.com |
-| Luis R G Pereira	| luisrgpereira@gmail.com |
-| [Rodrigo Medeiros Costa](https://github.com/rodrigomdc)	| eng.rodrigomdc@gmail.com |
-| [Rodrigo Souza Aguiar](https://github.com/RAguiarEng)	| rodrigo_souza_aguiar@hotmail.com |
-
----
 
 ## 📄 Licença
 
