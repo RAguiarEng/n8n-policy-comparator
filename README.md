@@ -1,20 +1,22 @@
-# InsurMinds - Plataforma Inteligente para Análise e Comparação de Apólices D&O
-
+<div align="center">
 ![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=flat&logo=n8n&logoColor=white)
 ![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=flat&logo=googledrive&logoColor=white)
 ![Google Sheets](https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=googlesheets&logoColor=white)
 ![OCR.space](https://img.shields.io/badge/OCR.space-API-007BFF?style=flat)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-API-6B46C1?style=flat)
 ![Generative AI](https://img.shields.io/badge/Generative_AI-000000?style=flat&logo=openai&logoColor=white)
+</div>
+
+# GenAI Seguros - Plataforma Inteligente para Análise e Comparação de Apólices D&O
 
 > **Projeto Final - I2A2 (Instituto de Inteligência Artificial Aplicada)**  
-> 🔗 **[Acessar a Aplicação Web (Live Demo)](https://SEU_USUARIO.github.io/n8n-policy-comparator/)**
+> 🔗 **[Acessar a Aplicação Web](https://raguiareng.github.io/n8n-policy-comparator/)**
 
 ---
 
 ## 📖 Descrição do Projeto
 
-O **InsurMinds** é um protótipo funcional (MVP) baseado em Inteligência Artificial Generativa, desenvolvido para automatizar a extração, organização e comparação de informações presentes em apólices de seguro D&O (*Directors and Officers*). 
+O **GenAI Seguros** é um protótipo funcional (MVP) baseado em Inteligência Artificial Generativa, desenvolvido para automatizar a extração, organização e comparação de informações presentes em apólices de seguro D&O (*Directors and Officers*). 
 
 O processo tradicional de análise de apólices exige horas de trabalho manual de especialistas para identificar cláusulas, limites e vigências. Nossa solução resolve esse problema através de uma arquitetura orientada a eventos e agentes inteligentes, permitindo a ingestão de documentos (PDF/Imagens), extração via OCR, estruturação via LLMs e uma interface de chat para comparação em linguagem natural.
 
@@ -77,7 +79,7 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 ## ⚙️ Instruções de Instalação e Execução
 
 ### 1. Configuração do Frontend
-1. Clone este repositório: `git clone https://github.com/SEU_USUARIO/n8n-policy-comparator.git`
+1. Clone este repositório: `git clone https://github.com/RAguiarEng/n8n-policy-comparator.git`
 2. Abra o arquivo `config.js` e insira o link da sua pasta do Google Drive e a URL do Webhook do seu n8n.
 3. Hospede os arquivos em qualquer servidor web ou utilize o GitHub Pages.
 
@@ -95,8 +97,13 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ## 👥 Integrantes do Grupo
 
-- **Rodrigo Aguiar** - [LinkedIn](https://linkedin.com/in/seu-perfil) | [GitHub](https://github.com/seu-usuario)
-- *(Adicione os demais integrantes aqui, se houver)*
+| Nome	| E-mail |
+| --- | --- |
+| Bruno Corrêa	| correabruno321@gmail.com |
+| [Jhiovana Silva Ribeiro](https://github.com/jhsribeiro)	| jhiovanasilva11@gmail.com |
+| Luis R G Pereira	| luisrgpereira@gmail.com |
+| [Rodrigo Medeiros Costa](https://github.com/rodrigomdc)	| eng.rodrigomdc@gmail.com |
+| [Rodrigo Souza Aguiar](https://github.com/RAguiarEng)	| rodrigo_souza_aguiar@hotmail.com |
 
 ---
 
