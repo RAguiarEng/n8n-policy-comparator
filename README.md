@@ -61,7 +61,9 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ---
 
-## [![n8n](https://shields.io)](https://n8n.io/) Workflows
+## <p align="center">
+  <img src="https://githubusercontent.com" alt="n8n Node" width="200"/>
+</p> Workflows
 
 ### Workflow 1 -- Processamento de Apólices D&O
 
