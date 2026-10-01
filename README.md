@@ -61,9 +61,7 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ---
 
-## <p align="center">
-  <img src="https://githubusercontent.com" alt="n8n Node" width="200"/>
-</p> Workflows
+## n8n Workflows
 
 ### Workflow 1 -- Processamento de Apólices D&O
 
