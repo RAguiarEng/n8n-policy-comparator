@@ -1,11 +1,9 @@
-<div align="center">
 ![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=flat&logo=n8n&logoColor=white)
 ![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=flat&logo=googledrive&logoColor=white)
 ![Google Sheets](https://img.shields.io/badge/Google_Sheets-34A853?style=flat&logo=googlesheets&logoColor=white)
 ![OCR.space](https://img.shields.io/badge/OCR.space-API-007BFF?style=flat)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-API-6B46C1?style=flat)
 ![Generative AI](https://img.shields.io/badge/Generative_AI-000000?style=flat&logo=openai&logoColor=white)
-</div>
 
 # GenAI Seguros - Plataforma Inteligente para Análise e Comparação de Apólices D&O
 
@@ -60,22 +58,6 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ---
 
-## ⚠️ Limitações Conhecidas
-
-- **Limitações do OCR Gratuito:** Documentos muito extensos ou imagens de baixa qualidade podem sofrer truncamento ou falha na extração de texto pela API do OCR.space.
-- **Latência de LLMs:** O uso de modelos com muitos parâmetros (ex: Nemotron 120b) pode gerar um tempo de resposta superior a 1 minuto na extração.
-- **Gatilho de Polling:** O Google Drive Trigger verifica a pasta a cada 5 minutos, o que significa que a ingestão não é estritamente em tempo real.
-
----
-
-## 🚀 Evolução Futura
-
-- Implementação de um banco de dados vetorial (ex: Pinecone) para permitir buscas semânticas (RAG) no texto completo das apólices, além dos dados estruturados.
-- Substituição do OCR.space por soluções mais robustas (ex: AWS Textract ou Azure Document Intelligence).
-- Adição de autenticação no frontend para garantir que apenas corretores autorizados acessem o chat.
-
----
-
 ## ⚙️ Instruções de Instalação e Execução
 
 ### 1. Configuração do Frontend
@@ -92,6 +74,22 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
    - OpenRouter API Key
 3. No Workflow 1, atualize os IDs da pasta do Drive e da planilha do Sheets.
 4. Ative os dois workflows.
+
+---
+
+## ⚠️ Limitações Conhecidas
+
+- **Limitações do OCR Gratuito:** Documentos muito extensos ou imagens de baixa qualidade podem sofrer truncamento ou falha na extração de texto pela API do OCR.space.
+- **Latência de LLMs:** O uso de modelos com muitos parâmetros (ex: Nemotron 120b) pode gerar um tempo de resposta superior a 1 minuto na extração.
+- **Gatilho de Polling:** O Google Drive Trigger verifica a pasta a cada 5 minutos, o que significa que a ingestão não é estritamente em tempo real.
+
+---
+
+## 🚀 Evolução Futura
+
+- Implementação de um banco de dados vetorial (ex: Pinecone) para permitir buscas semânticas (RAG) no texto completo das apólices, além dos dados estruturados.
+- Substituição do OCR.space por soluções mais robustas (ex: AWS Textract ou Azure Document Intelligence).
+- Adição de autenticação no frontend para garantir que apenas corretores autorizados acessem o chat.
 
 ---
 
