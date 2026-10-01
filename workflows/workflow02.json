@@ -1,5 +1,5 @@
 {
-  "name": "InsurMinds - Assistente de Comparação D&O",
+  "name": "GenAI Seguros - Assistente de Comparação D&O",
   "nodes": [
     {
       "parameters": {
@@ -15,7 +15,7 @@
       ],
       "id": "6d74300c-9254-450e-983c-0597a9d54d3c",
       "name": "When chat message received",
-      "webhookId": "49bf4279-6103-44a8-8d04-044e44d773f2"
+      "webhookId": "SEU_WEBHOOK_ID_AQUI"
     },
     {
       "parameters": {
@@ -67,7 +67,7 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1633J_K1YpxSjRVgvMSHs1CbC4rHgR65LMYuKodBEhcw",
+          "value": "COLE_SEU_SHEET_ID_AQUI",
           "mode": "id"
         },
         "sheetName": {
