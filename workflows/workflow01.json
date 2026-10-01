@@ -1,5 +1,5 @@
 {
-  "name": "InsurMinds - Processamento de Apólices D&O",
+  "name": "GenAI Seguros - Processamento de Apólices D&O",
   "nodes": [
     {
       "parameters": {
@@ -15,7 +15,7 @@
         "triggerOn": "specificFolder",
         "folderToWatch": {
           "__rl": true,
-          "value": "1yE3BvH-YXMCW7OEFJLVxHxbiVllfjeMo",
+          "value": "COLE_SEU_FOLDER_ID_AQUI",
           "mode": "id"
         },
         "event": "fileCreated",
@@ -242,7 +242,7 @@
         "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
-          "value": "1633J_K1YpxSjRVgvMSHs1CbC4rHgR65LMYuKodBEhcw",
+          "value": "COLE_SEU_SHEET_ID_AQUI",
           "mode": "id"
         },
         "sheetName": {
@@ -254,7 +254,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "Arquivo": "={{ $('Google Drive Trigger').item.json.name }}",
-            "Seguradora": "={{ $json.output.Segurado }}",
+            "Seguradora": "={{ $json.output.Seguradora }}",
             "Segurado": "={{ $json.output.Segurado }}",
             "Limite_Indenizacao": "={{ $json.output.Limite_Indenizacao }}",
             "Vigencia": "={{ $json.output.Vigencia }}"
