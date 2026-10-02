@@ -65,16 +65,22 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ### Workflow 1 - Processamento de Apólices D&O
 
+Arquivo: [workflow01.json](workflows/workflow01.json)
+
 Recuperação dos arquivos `.pdf`, `.jpeg`, `.png` e `.tiff` do Google Drive, processamento pela [OCRSpace](https://ocr.space/ocrapi), plano gratuito, e registro das informações necessárias para comparação na planilha principal `Base_Apolices_DO`. 
 
 ![workflow1](img/workflow01_pt.png)
 
 ### Worflow 2 - Assistente de Comparação D&O
 
+Arquivo: [workflow02.json](workflows/workflow02.json)
+
 Recebimento das informações do workflow 1, análise e comparação dos dados via LLM, cujo gatilho é solicitação via chat. 
 Memória definida em cinco contextos.
 
 ![workflow2](img/workflow02_pt.png)
+
+Arquivo: ![workflow03.json](workflows/workflow03.json)
 
 ## Workflow 3 - Upload de apólices
 
