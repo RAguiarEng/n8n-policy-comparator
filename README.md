@@ -52,7 +52,7 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Orquestração e Backend:** n8n (Self-Hosted na Oracle Cloud Infrastructure - OCI)
+- **Orquestração e Backend:** n8n (Self-Hosted na Oracle Cloud Infrastructure - OCI) com acesso restrito em [bot.rsa.ia.br](https://bot.rsa.ia.br).
 - **Visão Computacional (OCR):** OCR.space API
 - **Modelos de Linguagem (LLMs):** OpenRouter (Modelos utilizados: `poolside/laguna-s-2.1:free`, `nvidia/nemotron-3-super-120b-a12b:free`, `qwen/qwen3.8-27b:free`)
 - **Armazenamento e Banco de Dados:** Google Drive e Google Sheets
