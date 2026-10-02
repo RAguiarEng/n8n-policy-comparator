@@ -80,9 +80,9 @@ Memória definida em cinco contextos.
 
 ![workflow2](img/workflow02_pt.png)
 
-Arquivo: ![workflow03.json](workflows/workflow03.json)
-
 ## Workflow 3 - Upload de apólices
+
+Arquivo: [workflow03.json](workflows/workflow03.json)
 
 Carregamento de arquivos `.pdf`, `.jpeg`, `.png` e `.tiff` para a pasta `Entrada` o Google Drive.
 O nó `Code in JavaScript` seleciona o nome do arquivo dentro do `.json` recebido e associa com o seu respectivo arquivo, para upload no Google Drive.
