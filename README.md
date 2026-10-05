@@ -54,7 +54,7 @@ A solução foi dividida em dois módulos independentes (Workflows no n8n) para 
 
 - **Orquestração e Backend:** n8n (Self-Hosted na Oracle Cloud Infrastructure - OCI) com acesso restrito em [bot.rsa.ia.br](https://bot.rsa.ia.br).
 - **Visão Computacional (OCR):** OCR.space API
-- **Modelos de Linguagem (LLMs):** OpenRouter (Modelos utilizados: `poolside/laguna-s-2.1:free`, `nvidia/nemotron-3-super-120b-a12b:free`, `qwen/qwen3.8-27b:free`)
+- **Modelos de Linguagem (LLMs):** OpenRouter (Modelos principais testados: `cohere/north-mini-code:free`, `poolside/laguna-s-2.1:free`. Estratégia de Fallback implementada para contornar *Rate Limits*).
 - **Armazenamento e Banco de Dados:** Google Drive e Google Sheets
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
 - **Hospedagem Web:** GitHub Pages
@@ -97,6 +97,9 @@ O nó `Code in JavaScript` seleciona o nome do arquivo dentro do `.json` recebid
 - **Processamento em Lote (Batch):** O nó de código JavaScript no Módulo 1 foi otimizado para iterar sobre `$input.all()`, garantindo que múltiplos uploads simultâneos no Drive não resultem em perda de dados.
 - **Resiliência a Falhas de Extração:** Optou-se por instruir o LLM de extração a preencher campos com `"Não encontrado"` caso o OCR falhe (comum em imagens de baixa resolução). O Agente de Comparação foi instruído a ler esse dado e informar o usuário de forma transparente, evitando alucinações (*hallucinations*).
 - **Fallback de Modelos:** Devido aos limites de taxa (*Rate Limits*) de APIs gratuitas, a arquitetura permite a rápida substituição de modelos no OpenRouter para garantir a continuidade do serviço.
+- **Sincronia de Contratos (Desativação de Streaming):** O n8n está hospedado na Oracle Cloud (OCI) atrás de um Proxy Reverso. Notamos que o proxy realizava *buffering* dos pacotes de streaming, entregando um JSON concatenado e inválido ao frontend (`SyntaxError`). A decisão arquitetural foi desativar o streaming tanto no *Chat Trigger* quanto no *AI Agent*, garantindo a entrega da resposta em um bloco único e íntegro.
+- **Prevenção de Timeout e Alucinações:** O n8n possui um mecanismo de proteção que envia um sinal `{ "type": "keepalive" }` caso o processamento passe de 15 segundos. Esse sinal entrava em conflito com o frontend estático e induzia o LLM a alucinações (ex: inventar que precisava "ajustar o código do servidor"). A solução foi adotar modelos de inferência ultrarrápida (tempo de resposta < 10s), como o `cohere/north-mini-code`, eliminando a necessidade do *keepalive*.
+- **Compatibilidade de Tool Calling no Fallback:** Ao configurar modelos de contingência, identificamos que alguns LLMs falham ao formatar o JSON de requisição para o Google Sheets (omitindo o parâmetro obrigatório `id`). A arquitetura exige que tanto o modelo principal quanto o fallback tenham suporte nativo e comprovado a *Tool Calling*.
 
 ---
 
@@ -124,6 +127,7 @@ O nó `Code in JavaScript` seleciona o nome do arquivo dentro do `.json` recebid
 - **Limitações do OCR Gratuito:** Documentos muito extensos ou imagens de baixa qualidade podem sofrer truncamento ou falha na extração de texto pela API do OCR.space.
 - **Latência de LLMs:** O uso de modelos com muitos parâmetros (ex: Nemotron 120b) pode gerar um tempo de resposta superior a 1 minuto na extração.
 - **Gatilho de Polling:** O Google Drive Trigger verifica a pasta a cada 5 minutos, o que significa que a ingestão não é estritamente em tempo real.
+- **Interferência de Proxy Reverso em Webhooks:** O uso do n8n atrás de proxies na nuvem pode interferir no envio de pacotes fragmentados (Server-Sent Events / Streaming), exigindo adaptações no modo de resposta (Response Mode) para garantir a estabilidade da interface de chat.
 
 ---
 
