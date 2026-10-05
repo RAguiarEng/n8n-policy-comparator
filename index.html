@@ -3,78 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InsurMinds - Comparador de Apólices D&O</title>
+    <meta name="description" content="GenAI Seguros - Plataforma com tecnologia OCR e IA para extrair, analisar e comparar apólices de seguro D&O (Directors and Officers).">
+    <title>GenAI Seguros - Análise e Comparação Inteligente de Apólices D&O</title>
 
-    <!-- Importa o CSS customizado -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
 
     <!-- Importa o CSS oficial do chat do n8n -->
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>GenAI Seguros</h1>
-        <p>Plataforma Inteligente para Análise e Comparação de Apólices D&O</p>
+    <!-- Link de Acessibilidade para Pular para o Conteúdo Principal -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <!-- 1. Cabeçalho & Navegação Principal -->
+    <header class="header" role="banner">
+        <div class="container header-inner">
+            <a href="#main-content" class="logo" aria-label="GenAI Seguros - Página Inicial">
+                <span class="logo-icon-wrapper" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
+                <span>GenAI Seguros</span>
+                <span class="logo-badge">D&amp;O</span>
+            </a>
+
+            <!-- Botão do Menu Mobile (Hamburger) -->
+            <button id="mobile-menu-toggle" class="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menu de navegação">
+                <svg id="menu-icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+                <svg id="menu-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Navegação Principal -->
+            <nav id="nav-menu" class="nav-wrapper" role="navigation" aria-label="Menu principal">
+                <ul class="nav-links">
+                    <li><a href="#como-funciona" class="nav-link">Como funciona</a></li>
+                    <li><a href="#beneficios" class="nav-link">Benefícios</a></li>
+                    <li><a href="#assistente" class="nav-link">Assistente</a></li>
+                </ul>
+                <a id="header-upload-btn" href="#" class="btn btn-primary header-cta" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Enviar apólice</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema claro e escuro">Tema</button>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <div class="instructions">
-            <h2>Bem-vindo ao Assistente Virtual</h2>
-            <p>Esta ferramenta permite a ingestão, extração e comparação de apólices de seguro D&O utilizando Inteligência Artificial.</p>
+    <!-- Conteúdo Principal -->
+    <main id="main-content">
+        <section class="hero-section" aria-labelledby="hero-heading">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <p class="hero-label">Análise de seguros D&amp;O</p>
+                    <h1 id="hero-heading">Apólices complexas.<br>Comparações claras.</h1>
+                    <p class="hero-description">Envie seus documentos e consulte limites, vigências e diferenças entre apólices em uma conversa.</p>
+                    <div class="hero-actions">
+                        <a id="hero-upload-btn" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">Enviar apólice <span aria-hidden="true">↗</span></a>
+                        <button id="hero-chat-btn" class="btn btn-text" type="button">Abrir assistente <span aria-hidden="true">→</span></button>
+                    </div>
+                </div>
+                <figure class="hero-visual">
+                    <img src="img/analise-documentos.webp" width="800" height="1000" fetchpriority="high" alt="Documentos e uma pasta azul sobre uma mesa de trabalho.">
+                </figure>
+            </div>
+        </section>
 
-            <h3>Como utilizar:</h3>
-            <ol>
-                <li><strong>Ingestão:</strong> Faça o upload do documento (PDF ou Imagem) na nossa pasta segura.</li>
-                <li><strong>Processamento:</strong> Aguarde alguns instantes enquanto nossa IA extrai os dados estruturados.</li>
-                <li><strong>Comparação:</strong> Utilize o chat no canto inferior direito para fazer perguntas e comparar as apólices processadas.</li>
-            </ol>
-        </div>
+        <aside class="upload-guidance container" aria-label="Antes de enviar">
+            <p><strong>Antes de enviar</strong><span>PDF, PNG ou JPEG. O formulário abre em outra aba.</span></p>
+            <p>O processamento pode levar alguns minutos. Para comparar, envie ao menos duas apólices e volte ao assistente.</p>
+        </aside>
 
-        <!-- O link deste botão será preenchido dinamicamente pelo JavaScript -->
-        <a id="upload-btn" href="#" class="upload-btn" target="_blank">
-            Fazer Upload de Nova Apólice
-        </a>
+        <section id="como-funciona" class="how-it-works-section" aria-labelledby="how-it-works-title">
+            <div class="container process-layout">
+                <div class="section-header">
+                    <h2 id="how-it-works-title">Do documento<br>à consulta.</h2>
+                    <p>Você envia as apólices. A plataforma extrai os dados com OCR e IA para apoiar sua análise.</p>
+                </div>
+                <ol class="steps-list">
+                    <li><h3>Envie as apólices</h3><p>Selecione os documentos no formulário. Uma apólice permite consultas; duas ou mais permitem comparações.</p></li>
+                    <li><h3>Aguarde a extração</h3><p>O processamento pode levar cerca de 5 minutos ou mais. Esta página ainda não acompanha o status de cada arquivo.</p></li>
+                    <li><h3>Volte e faça uma pergunta</h3><p>Abra o assistente e comece por “Quais apólices estão disponíveis?”. Depois, indique quais deseja comparar.</p></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="beneficios" class="benefits-section" aria-labelledby="benefits-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="benefits-title">Mais contexto para sua análise.</h2>
+                    <p>D&amp;O (Directors and Officers) é o seguro de responsabilidade civil para administradores e diretores. Compare os dados extraídos sem perder de vista o documento original.</p>
+                </div>
+                <div class="benefits-grid">
+                    <article><h3>Limites e vigências, lado a lado</h3><p>Consulte os valores e períodos identificados em cada apólice para entender suas diferenças.</p></article>
+                    <article><h3>Perguntas em suas palavras</h3><p>Peça um resumo ou uma comparação pelo chat, sem precisar navegar por uma planilha.</p></article>
+                    <article><h3>Lacunas à vista</h3><p>Quando um dado não for encontrado, o assistente deve indicar a ausência. Confira os pontos relevantes no documento.</p></article>
+                    <article><h3>Apoio à revisão, com critério</h3><p>A extração ajuda a organizar a leitura. A avaliação de coberturas e condições continua exigindo revisão profissional.</p></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="assistente" class="assistant-section" aria-labelledby="assistant-title">
+            <div class="container assistant-layout">
+                <div class="assistant-intro">
+                    <h2 id="assistant-title">O que você quer<br>comparar?</h2>
+                    <p>Consulte uma apólice ou compare duas ou mais já processadas. Escolha uma pergunta para preencher o chat e revise antes de enviar.</p>
+                    <button id="assistant-open-btn" class="btn btn-primary" type="button">Abrir assistente <span aria-hidden="true">→</span></button>
+                </div>
+                <div>
+                    <div class="suggested-chips" role="region" aria-label="Sugestões de perguntas">
+                        <button class="chip-btn" type="button" data-prompt="Quais apólices estão disponíveis?"><span>Quais apólices estão disponíveis?</span><span aria-hidden="true">↗</span></button>
+                        <button class="chip-btn" type="button" data-prompt="Qual apólice possui o maior limite?"><span>Qual apólice possui o maior limite?</span><span aria-hidden="true">↗</span></button>
+                        <button class="chip-btn" type="button" data-prompt="Compare as vigências das apólices."><span>Compare as vigências das apólices.</span><span aria-hidden="true">↗</span></button>
+                        <button class="chip-btn" type="button" data-prompt="Quais informações não foram encontradas?"><span>Quais informações não foram encontradas?</span><span aria-hidden="true">↗</span></button>
+                    </div>
+                    <div id="webhook-alert-box" class="webhook-alert" role="alert" aria-live="assertive">
+                        <div><strong>Assistente indisponível</strong><p id="webhook-alert-message">Aguarde alguns instantes e tente novamente.</p></div>
+                        <button id="webhook-retry-btn" class="btn btn-secondary" type="button">Tentar novamente</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <!-- 6. Rodapé Institucional -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#main-content" class="footer-logo">
+                        <span class="logo-icon-wrapper" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span>GenAI Seguros</span>
+                    </a>
+                    <p class="footer-desc">
+                        Plataforma para extração, organização e comparação de apólices de seguro D&amp;O (Directors and Officers) utilizando tecnologia OCR e Inteligência Artificial.
+                    </p>
+                    <div class="footer-academic-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg>
+                        <span>Projeto final | I2A2 (Instituto de Inteligência Artificial Aplicada)</span>
+                    </div>
+                </div>
+
+                <div class="footer-nav">
+                    <span class="footer-nav-title">Navegação Rápida</span>
+                    <ul class="footer-links">
+                        <li><a href="#como-funciona" class="footer-link">Como funciona</a></li>
+                        <li><a href="#beneficios" class="footer-link">Benefícios do sistema</a></li>
+                        <li><a href="#assistente" class="footer-link">Assistente virtual</a></li>
+                        <li><a href="#main-content" class="footer-link">Voltar ao topo</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Aviso Regulatório / Disclaimer Obrigatório -->
+            <div class="footer-disclaimer-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <p class="footer-disclaimer-text">
+                    <strong>Aviso importante:</strong> As análises geradas auxiliam a tomada de decisão e não substituem a avaliação de um especialista. Consulte sempre corretores habilitados e os textos oficiais das apólices emitidas pelas seguradoras.
+                </p>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 GenAI Seguros. Desenvolvido para o programa de formação I2A2.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Acessível: Aviso quando o link de upload do formulário não estiver configurado -->
+    <div id="config-modal" class="accessible-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="accessible-modal">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Configuração de Upload Pendente
+                </h3>
+                <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Fechar janela">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    O link para o formulário de envio ainda não foi informado na variável <code>AppConfig.googleDriveUrl</code> do arquivo <code>config.js</code>.
+                </p>
+                <p style="margin-top: 0.75rem;">
+                    Para habilitar o envio de arquivos (.pdf, .png, .jpeg), preencha o endereço desejado no arquivo de configuração e atualize a página.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-confirm-btn" class="btn btn-primary" type="button">Entendi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Acessível para Feedback de Ações -->
+    <div id="accessible-toast" class="accessible-toast" role="status" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-message">Pergunta selecionada.</span>
+    </div>
 
     <!-- 1. Importa o arquivo de variáveis de configuração -->
     <script src="config.js"></script>
-
-    <!-- 2. Script para inicializar a página e o chat dinamicamente -->
-    <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
-
-    // Injeta o link do Google Drive no botão
-    const uploadBtn = document.getElementById('upload-btn');
-    if (AppConfig.googleDriveUrl && AppConfig.googleDriveUrl !== "") {
-        uploadBtn.href = AppConfig.googleDriveUrl;
-    } else {
-        uploadBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert("Por favor, configure o link do Google Drive no arquivo config.js");
+    <script>
+        // Escolha local de apresentação; não interfere na integração do chat.
+        const themeButton = document.getElementById('theme-toggle');
+        themeButton.addEventListener('click', () => {
+            const current = document.documentElement.dataset.theme
+                || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.dataset.theme = next;
+            themeButton.textContent = next === 'dark' ? 'Tema claro' : 'Tema escuro';
         });
-    }
+    </script>
 
-    // Inicializa o Chat do n8n com UI/UX otimizado
-    if (AppConfig.n8nWebhookUrl) {
-        createChat({
-            webhookUrl: AppConfig.n8nWebhookUrl,
-            initialMessages: [
-                "Olá! 👋 Somos a GenAI Seguros.",
-                "Como podemos te ajudar a comparar apólices D&O hoje?"
-            ],
-            i18n: {
-                en: {
-                    title: 'GenAI Seguros',
-                    subtitle: 'Assistente Especialista em D&O',
-                    chatInputPlaceholder: 'Digite sua pergunta aqui...',
-                    getStarted: 'Iniciar Conversa',
-                    footer: 'Projeto Final - InsurMinds'
+    <!-- 2. Script para inicializar a página, interações e o chat dinamicamente -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/chat.bundle.es.js';
+
+        // -------------------------------------------------------------------
+        // Função Utilitária para Abrir o Widget Oficial do n8n
+        // -------------------------------------------------------------------
+        function triggerChatOpen() {
+            const chatToggle = document.querySelector(
+                '.chat-window-toggle, .chat-toggle, .n8n-chat .chat-toggle, [class*="chat"][class*="toggle"], button[aria-label*="chat" i]'
+            );
+            const chatWindow = document.querySelector('.chat-window');
+
+            if (chatToggle) {
+                const isClosed = !chatWindow
+                    || getComputedStyle(chatWindow).display === 'none'
+                    || getComputedStyle(chatWindow).visibility === 'hidden'
+                    || chatWindow.getAttribute('aria-hidden') === 'true';
+
+                if (isClosed) {
+                    chatToggle.click();
+                }
+            } else {
+                const assistantSection = document.getElementById('assistente');
+                if (assistantSection) {
+                    assistantSection.scrollIntoView({ behavior: 'smooth' });
                 }
             }
+        }
+
+        const webhookAlertBox = document.getElementById('webhook-alert-box');
+
+        function showChatError(message) {
+            if (!webhookAlertBox) return;
+            const messageElement = document.getElementById('webhook-alert-message');
+            if (messageElement) {
+                messageElement.textContent = "O assistente está temporariamente indisponível. Aguarde alguns instantes e tente novamente.";
+            }
+            webhookAlertBox.classList.add('is-visible');
+            if (message) {
+                console.warn('[GenAI Seguros - Diagnóstico Chat]:', message);
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // Gerenciamento dos Botões de Upload e Modal Acessível com Focus Trap
+        // -------------------------------------------------------------------
+        const headerUploadBtn = document.getElementById('header-upload-btn');
+        const heroUploadBtn = document.getElementById('hero-upload-btn');
+        const configModal = document.getElementById('config-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+        let lastFocusedElement = null;
+
+        function openModal(trigger) {
+            if (configModal) {
+                lastFocusedElement = trigger || document.activeElement;
+                configModal.classList.add('is-open');
+                configModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                if (modalConfirmBtn) modalConfirmBtn.focus();
+            }
+        }
+
+        function closeModal() {
+            if (configModal) {
+                configModal.classList.remove('is-open');
+                configModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                    lastFocusedElement.focus();
+                }
+            }
+        }
+
+        if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if (modalConfirmBtn) modalConfirmBtn.addEventListener('click', closeModal);
+        if (configModal) {
+            configModal.addEventListener('click', (e) => {
+                if (e.target === configModal) closeModal();
+            });
+
+            // Contenção de Foco (Focus Trap)
+            configModal.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    const focusables = configModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    if (focusables.length === 0) return;
+                    const first = focusables[0];
+                    const last = focusables[focusables.length - 1];
+                    if (e.shiftKey) {
+                        if (document.activeElement === first) {
+                            last.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === last) {
+                            first.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && configModal && configModal.classList.contains('is-open')) {
+                closeModal();
+            }
         });
-    } else {
-        console.error("URL do Webhook do n8n não configurada no config.js");
-    }
+
+        // Configuração segura do link do formulário de envio
+        const hasDriveUrl = typeof AppConfig !== 'undefined' && AppConfig.googleDriveUrl && AppConfig.googleDriveUrl.trim() !== '';
+
+        [headerUploadBtn, heroUploadBtn].forEach((btn) => {
+            if (!btn) return;
+            if (hasDriveUrl) {
+                btn.href = AppConfig.googleDriveUrl;
+                btn.target = '_blank';
+                btn.rel = 'noopener noreferrer';
+            } else {
+                btn.href = '#';
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal(btn);
+                });
+            }
+        });
+
+        // -------------------------------------------------------------------
+        // Menu Mobile (Hambúrguer) Acessível
+        // -------------------------------------------------------------------
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        if (mobileMenuToggle && navMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                const isOpen = navMenu.classList.toggle('is-open');
+                mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+                if (menuIconOpen && menuIconClose) {
+                    menuIconOpen.style.display = isOpen ? 'none' : 'block';
+                    menuIconClose.style.display = isOpen ? 'block' : 'none';
+                }
+            });
+
+            // Fecha o menu ao clicar em qualquer link de navegação
+            navMenu.querySelectorAll('.nav-link, .btn').forEach((link) => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('is-open');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    if (menuIconOpen && menuIconClose) {
+                        menuIconOpen.style.display = 'block';
+                        menuIconClose.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // -------------------------------------------------------------------
+        // Botões de Acionamento do Assistente
+        // -------------------------------------------------------------------
+        const heroChatBtn = document.getElementById('hero-chat-btn');
+        const assistantOpenBtn = document.getElementById('assistant-open-btn');
+
+        [heroChatBtn, assistantOpenBtn].forEach((btn) => {
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    triggerChatOpen();
+                });
+            }
+        });
+
+        // -------------------------------------------------------------------
+        // Toast Acessível para Feedback
+        // -------------------------------------------------------------------
+        const toast = document.getElementById('accessible-toast');
+        const toastMessage = document.getElementById('toast-message');
+        let toastTimeout = null;
+
+        function showToast(message) {
+            if (!toast) return;
+            if (toastMessage) toastMessage.textContent = message;
+            toast.classList.add('is-active');
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('is-active');
+            }, 4000);
+        }
+
+        // -------------------------------------------------------------------
+        // Chips de Perguntas Sugeridas (Preenchimento sem Envio Automático)
+        // -------------------------------------------------------------------
+        function handlePromptSelection(prompt) {
+            triggerChatOpen();
+
+            let attempts = 0;
+            const maxAttempts = 20; // até 2s aguardando montagem do campo
+            const checkInputInterval = setInterval(() => {
+                attempts++;
+                const chatInput = document.querySelector(
+                    '.chat-input textarea, .chat-input input, textarea[placeholder*="dúvida" i], textarea[placeholder*="pergunta" i], textarea[placeholder*="question" i], .n8n-chat textarea'
+                );
+
+                if (chatInput) {
+                    clearInterval(checkInputInterval);
+                    // Setter nativo para compatibilidade com reatividade Vue do n8n chat
+                    const valueSetter = Object.getOwnPropertyDescriptor(
+                        Object.getPrototypeOf(chatInput),
+                        'value'
+                    )?.set;
+
+                    if (valueSetter) {
+                        valueSetter.call(chatInput, prompt);
+                    } else {
+                        chatInput.value = prompt;
+                    }
+
+                    chatInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    chatInput.dispatchEvent(new Event('change', { bubbles: true }));
+                    chatInput.focus();
+                    showToast('Pergunta inserida no campo do assistente. Revise e envie sua mensagem.');
+                } else if (attempts >= maxAttempts) {
+                    clearInterval(checkInputInterval);
+                    showToast('O campo do assistente ainda não está disponível. Aguarde e tente novamente.');
+                }
+            }, 100);
+        }
+
+        const chipButtons = document.querySelectorAll('.chip-btn');
+        chipButtons.forEach((chip) => {
+            chip.addEventListener('click', () => {
+                const prompt = chip.getAttribute('data-prompt') || chip.textContent.trim();
+                handlePromptSelection(prompt);
+            });
+        });
+
+        // Botão de nova tentativa caso o assistente tenha apresentado instabilidade
+        const webhookRetryBtn = document.getElementById('webhook-retry-btn');
+        if (webhookRetryBtn) {
+            webhookRetryBtn.addEventListener('click', () => {
+                if (webhookAlertBox) webhookAlertBox.classList.remove('is-visible');
+                triggerChatOpen();
+            });
+        }
+
+        // -------------------------------------------------------------------
+        // Inicialização do Chat Oficial do n8n com Idioma Correto
+        // -------------------------------------------------------------------
+        const hasWebhookUrl = typeof AppConfig !== 'undefined' && AppConfig.n8nWebhookUrl && AppConfig.n8nWebhookUrl.trim() !== '';
+
+        // Tratamento de falhas de rede assíncronas do n8n sem expor termos técnicos
+        window.addEventListener('unhandledrejection', (event) => {
+            const reason = event.reason;
+            const message = reason instanceof Error ? reason.message : String(reason || '');
+            if (/failed to fetch|network|webhook/i.test(message)) {
+                showChatError('Falha de conexão com o webhook do assistente.');
+            }
+        });
+
+        if (hasWebhookUrl) {
+            try {
+                createChat({
+                    webhookUrl: AppConfig.n8nWebhookUrl,
+                    mode: 'window',
+                    showWelcomeScreen: false,
+                    defaultLanguage: 'pt-BR',
+                    chatInputKey: 'chatInput',
+                    chatSessionKey: 'sessionId',
+                    initialMessages: [
+                        "Olá. Bem-vindo ao assistente do GenAI Seguros.",
+                        "Como posso ajudar você hoje? Você pode consultar uma apólice ou comparar limites, vigências e coberturas entre opções processadas."
+                    ],
+                    i18n: {
+                        en: {
+                            title: 'GenAI Seguros',
+                            subtitle: 'Assistente Especialista em D&O',
+                            inputPlaceholder: 'Digite sua dúvida sobre as apólices...',
+                            getStarted: 'Iniciar Conversa',
+                            footer: 'Projeto final | InsurMinds'
+                        },
+                        'pt-BR': {
+                            title: 'GenAI Seguros',
+                            subtitle: 'Assistente Especialista em D&O',
+                            inputPlaceholder: 'Digite sua dúvida sobre as apólices...',
+                            getStarted: 'Iniciar Conversa',
+                            footer: 'Projeto final | InsurMinds'
+                        }
+                    }
+                });
+
+                // Observador para garantir placeholder em português caso o widget utilize fallback
+                const observer = new MutationObserver(() => {
+                    const inputs = document.querySelectorAll('.chat-input textarea, .chat-input input, .n8n-chat textarea');
+                    inputs.forEach((input) => {
+                        if (input.placeholder && /type your question/i.test(input.placeholder)) {
+                            input.placeholder = 'Digite sua dúvida sobre as apólices...';
+                        }
+                    });
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            } catch (err) {
+                console.error("Erro na inicialização do widget n8n:", err);
+                showChatError('Erro de inicialização do widget do assistente.');
+            }
+        } else {
+            console.warn("[GenAI Seguros] URL do Webhook do n8n não configurada em config.js.");
+            showChatError('URL do webhook do n8n não configurada.');
+        }
     </script>
 </body>
 </html>
