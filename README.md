@@ -201,9 +201,9 @@ n8n-policy-comparator/
 │   ├── workflow02.json           # Workflow 2: Assistente de Consulta e Comparação
 │   └── workflow03.json           # Workflow 3: Upload de Apólices
 └── artefatos/                    # Artefatos obrigatórios de conclusão do curso
-    ├── InsurMinds_Projeto_Final.pptx           # Apresentação Pitch Deck
-    ├── InsurMinds_Projeto_Final.mp4            # Vídeo demonstrativo (máx. 5 min)
-    └── Relatorio_Tecnico_GenAI_Seguros.pdf     # Relatório técnico em PDF
+    ├── InsurMinds_Projeto_Final.pptx                    # Apresentação Pitch Deck
+    ├── InsurMinds_Projeto_Final.mp4                     # Vídeo demonstrativo (máx. 5 min)
+    └── GenAI_Seguros_InsurMinds_Projeto_Final.pdf       # Relatório técnico em PDF
 ```
 
 ---
