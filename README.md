@@ -10,6 +10,7 @@
 > **Projeto de Conclusão de Curso - InsurMinds / I2A2 (Instituto de Inteligência Artificial Aplicada)**  
 > 🔗 **[Acessar a Aplicação Web em Produção](https://raguiareng.github.io/n8n-policy-comparator/)**   
 > 📄 **[Relatório Técnico Completo](technical_report.md)** 
+
 > 🧑‍💻 **[Apresentação](artefatos/InsurMinds_Projeto_Final.pptx)**   
 > 📹 **[Vídeo Demonstrativo](artefatos/InsurMinds_Projeto_Final.mp4)** 
 
