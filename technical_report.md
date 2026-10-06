@@ -2,23 +2,27 @@
 
 ## Plataforma Inteligente para Análise e Comparação de Apólices D&O
 
-**Projeto Final - InsurMinds / I2A2**  
+**Projeto de Conclusão de Curso - InsurMinds / I2A2 (Instituto de Inteligência Artificial Aplicada)**  
 **Versão:** 1.0  
 **Data:** 5 de outubro de 2026  
-**Repositório público:** https://github.com/RAguiarEng/n8n-policy-comparator  
-**Aplicação web:** https://raguiareng.github.io/n8n-policy-comparator/
+**Repositório público:** [https://github.com/RAguiarEng/n8n-policy-comparator](https://github.com/RAguiarEng/n8n-policy-comparator)  
+**Aplicação web em produção:** [https://raguiareng.github.io/n8n-policy-comparator/](https://raguiareng.github.io/n8n-policy-comparator/)
 
-### Equipe
+---
 
-| Nome | E-mail |
-| --- | --- |
-| Bruno Corrêa | correabruno321@gmail.com |
-| Jhiovana Silva Ribeiro | jhiovanasilva11@gmail.com |
-| Luis R. G. Pereira | luisrgpereira@gmail.com |
-| Rodrigo Medeiros Costa | eng.rodrigomdc@gmail.com |
-| Rodrigo Souza Aguiar | rodrigo_souza_aguiar@hotmail.com |
+### Integrantes do Grupo
 
-## Resumo executivo
+| Nome | E-mail | GitHub |
+| :--- | :--- | :--- |
+| Bruno Corrêa | correabruno321@gmail.com | — |
+| Jhiovana Silva Ribeiro | jhiovanasilva11@gmail.com | [@jhsribeiro](https://github.com/jhsribeiro) |
+| Luis R G Pereira | luisrgpereira@gmail.com | — |
+| Rodrigo Medeiros Costa | eng.rodrigomdc@gmail.com | [@rodrigomdc](https://github.com/rodrigomdc) |
+| Rodrigo Souza Aguiar | rodrigo_souza_aguiar@hotmail.com | [@RAguiarEng](https://github.com/RAguiarEng) |
+
+---
+
+## Resumo Executivo
 
 O **GenAI Seguros** é um protótipo funcional para receber apólices de seguro D&O (*Directors and Officers*) em PDF ou imagem, extrair informações relevantes e permitir consultas e comparações em linguagem natural. A solução reduz o trabalho de localizar manualmente dados recorrentes em documentos extensos e heterogêneos, sem substituir a avaliação técnica de corretores, subscritores ou profissionais jurídicos.
 
@@ -77,8 +81,6 @@ Usuário
 
 O frontend é publicado no GitHub Pages. Os endpoints de formulário e chat apontam para uma instância n8n self-hosted na Oracle Cloud Infrastructure (OCI), sob o domínio `bot.rsa.ia.br`. O n8n concentra a lógica de integração e mantém as credenciais dos serviços em seu cofre de credenciais. Google Drive e Google Sheets funcionam, respectivamente, como repositório de entrada e persistência tabular do MVP.
 
-Essa implantação deve ser entendida como hospedagem de uma aplicação low-code em infraestrutura de nuvem. O repositório não contém evidência suficiente para classificar a solução como *serverless*.
-
 ## 3. Tecnologias utilizadas
 
 | Tecnologia | Uso no projeto | Motivo da escolha |
@@ -94,7 +96,7 @@ Essa implantação deve ser entendida como hospedagem de uma aplicação low-cod
 | `@n8n/chat` | Conversa com o agente | Integração direta com o Chat Trigger do n8n |
 | GitHub Pages | Hospedagem do frontend | Publicação estática ligada ao repositório público |
 
-No workflow de extração, o modelo configurado é `nvidia/nemotron-3-super-120b-a12b:free`, com temperatura zero, resposta JSON e até três tentativas. No agente de comparação, o modelo configurado é `nvidia/nemotron-3.5-lightning:free`. Como modelos gratuitos podem mudar de disponibilidade ou sofrer limites de taxa, essas identificações representam a configuração do repositório na data deste relatório.
+No workflow de extração, o modelo configurado é `nvidia/nemotron-3-super-120b-a12b:free`, com temperatura zero, resposta JSON e até três tentativas. No agente de comparação, o modelo principal configurado é o `cohere/north-mini-code:free` (escolhido por sua baixíssima latência), com uma estratégia de *Fallback* apontando para o `poolside/laguna-xs-2.1:free` (escolhido por sua alta confiabilidade em *Tool Calling*). Como modelos gratuitos podem mudar de disponibilidade ou sofrer limites de taxa, essas identificações representam a configuração otimizada do repositório na data deste relatório.
 
 ## 4. Agentes e componentes inteligentes
 
@@ -199,11 +201,20 @@ O frontend é independente do n8n e concentra URLs operacionais em `config.js`. 
 
 O OpenRouter desacopla os workflows de um único provedor. A equipe pode trocar o modelo configurado caso haja indisponibilidade, limite de uso ou necessidade de melhor qualidade.
 
+### Sincronia de Contratos (Desativação de Streaming)
+O n8n está hospedado na Oracle Cloud (OCI) atrás de um Proxy Reverso Caddy (via docker compose). Durante os testes, notou-se que o proxy realizava *buffering* dos pacotes de streaming, entregando um JSON concatenado e inválido ao frontend, o que gerava um `SyntaxError`. A decisão arquitetural foi desativar o streaming tanto no *Chat Trigger* quanto no *AI Agent*, garantindo a entrega da resposta em um bloco único e íntegro.
+
+### Prevenção de Timeout e Alucinações
+O n8n possui um mecanismo de proteção que envia um sinal `{ "type": "keepalive" }` caso o processamento ultrapasse o _timeout_. Esse sinal entrava em conflito com o frontend estático e induzia o LLM a alucinações (ex: o modelo inventava que precisava "ajustar o código do servidor" para justificar a demora). A solução foi adotar _fallback_.
+
+### Compatibilidade de Tool Calling no Fallback
+Ao configurar modelos de contingência para contornar *Rate Limits* da API gratuita, identificamos que alguns LLMs falham ao formatar o JSON de requisição para a ferramenta do Google Sheets (omitindo o parâmetro obrigatório `id`). A arquitetura exige que tanto o modelo principal quanto o fallback tenham suporte nativo e comprovado a *Tool Calling* (como a família Llama 3.1).
+
 ## 8. Confiabilidade, segurança e uso responsável
 
 O projeto adota controles iniciais de confiabilidade: filtragem de MIME type, prompt contra invenção, saída estruturada, consulta obrigatória à base e aviso na interface de que o sistema não substitui análise profissional.
 
-As credenciais de Google e APIs devem permanecer no gerenciador de credenciais do n8n e nunca ser incluídas nos JSONs exportados ou no repositório. A instância n8n administrativa possui acesso restrito, enquanto formulário e webhook necessários à demonstração são endpoints públicos.
+As credenciais do Google e APIs devem permanecer no gerenciador de credenciais do n8n e nunca ser incluídas nos JSONs exportados ou no repositório. A instância n8n administrativa possui acesso restrito, enquanto formulário e webhook necessários à demonstração são endpoints públicos.
 
 Como os documentos podem conter dados pessoais, empresariais e informações sensíveis de risco, uma implantação produtiva exigiria base legal e controles compatíveis com a LGPD: autenticação, autorização por usuário, retenção definida, exclusão, criptografia, trilha de auditoria, minimização dos dados e revisão dos contratos com subprocessadores.
 
@@ -212,15 +223,16 @@ As respostas do assistente são apoio à análise. Valores, datas, cláusulas e 
 ## 9. Limitações conhecidas
 
 - O OCR gratuito pode falhar, truncar documentos longos ou perder conteúdo em imagens de baixa qualidade.
-- O gatilho do Google Drive usa polling de cinco minutos; o processamento não é em tempo real e a página não exibe status por arquivo.
+- O gatilho do Google Drive tem tempo de espera de cinco minutos; o processamento não é em tempo real e a página não exibe status por arquivo.
 - A extração estruturada cobre somente seguradora, segurado, limite de indenização e vigência. Coberturas, exclusões, franquias, sublimites e cláusulas ainda não integram o contrato de dados.
 - Limites e vigências são armazenados como texto, sem normalização de moeda, período ou fuso.
 - O agente compara a planilha, não o conteúdo integral da apólice, e pode perder contexto que o esquema não preservou.
 - Não há, no repositório, testes automatizados, conjunto de avaliação rotulado ou métricas de precisão de OCR/extração.
 - Não há indicação de autenticação do usuário final, segregação de dados por cliente ou controle granular de acesso.
 - Serviços gratuitos e modelos do OpenRouter estão sujeitos a latência, limite de taxa e descontinuação.
-- O nome do arquivo é a chave de atualização; arquivos diferentes com o mesmo nome podem sobrescrever a mesma linha.
+- O nome do arquivo é a chave de atualização; arquivos diferentes com o mesmo nome podem sobrescrever a mesma linha. Por isso, `timestamp` é adicionado ao nome via `JavaScript` no workflow 01.
 - As integrações dependem de serviços externos e de configuração manual de IDs e credenciais após a importação dos workflows.
+- **Interferência de Proxy Reverso em Webhooks:** O uso do n8n atrás de proxies na nuvem (como na OCI) pode interferir no envio de pacotes fragmentados (Server-Sent Events / Streaming), exigindo adaptações no modo de resposta (*Response Mode*) para garantir a estabilidade da interface de chat.
 
 ## 10. Possibilidades de evolução
 
@@ -240,10 +252,10 @@ As respostas do assistente são apoio à análise. Valores, datas, cláusulas e 
 Para reproduzir o MVP:
 
 1. clone o repositório;
-2. importe `workflows/workflow01.json`, `workflow02.json` e `workflow03.json` no n8n;
+2. importe `workflows/workflow01.json`, `workflows/workflow02.json` e `workflows/workflow03.json` no n8n;
 3. configure credenciais de Google Drive, Google Sheets, OCR.space e OpenRouter;
 4. substitua os placeholders de pasta e planilha nos workflows;
-5. publique/ative os workflows e atualize as URLs em `config.js`;
+5. publique os workflows e atualize as URLs em `config.js`;
 6. sirva `index.html` e `style.css` por um servidor web ou pelo GitHub Pages;
 7. envie ao menos duas apólices, aguarde a ingestão e consulte o assistente.
 
