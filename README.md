@@ -169,7 +169,7 @@ A arquitetura adota uma abordagem em camadas com separação clara de responsabi
    ```bash
    git clone https://github.com/RAguiarEng/n8n-policy-comparator.git
    ```
-2. Crie o arquivo `config.js`, conforme `config_example.js`, e insira as URLs dos webhooks de produção geradas pelo n8n:
+2. Crie o arquivo `config.js`, conforme [`config_example.js`](config_example.js), e insira as URLs dos webhooks de produção geradas pelo n8n:
    ```javascript
    const AppConfig = {
        googleDriveUrl: "https://SEU_N8N/form/SEU_FORM_ID",
@@ -229,4 +229,4 @@ n8n-policy-comparator/
 
 ## 📄 Licença
 
-Este projeto está sob a licença **MIT**. Consulte o arquivo de licença para obter mais informações.
+Este projeto está sob a [licença **MIT**](LICENSE).
