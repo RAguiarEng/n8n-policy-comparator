@@ -2,11 +2,14 @@
 
 ## Plataforma Inteligente para Análise e Comparação de Apólices D&O
 
-**Projeto de Conclusão de Curso - InsurMinds / I2A2 (Instituto de Inteligência Artificial Aplicada)**  
+**Projeto de Conclusão de Curso - InsurMinds / I2A2**  
 **Versão:** 1.0  
 **Data:** 5 de outubro de 2026  
 **Repositório público:** [https://github.com/RAguiarEng/n8n-policy-comparator](https://github.com/RAguiarEng/n8n-policy-comparator)  
 **Aplicação web em produção:** [https://raguiareng.github.io/n8n-policy-comparator/](https://raguiareng.github.io/n8n-policy-comparator/)
+**Apresentação Pitch Deck `.pptx`**: [InsurMinds_Projeto_Final.pptx](artefatos/InsurMinds_Projeto_Final.pptx)
+
+**Vídeo Demonstrativo `.mp4`**: [InsurMinds_Projeto_Final.mp4](https://docs.google.com/videos/d/1fa3IZjEfNTuKBnBf14VcjKYzl4_bJVsLcq8zCvDCQug/play)
 
 ---
 
@@ -149,7 +152,7 @@ Para precisão arquitetural, apenas o workflow de consulta utiliza o nó **AI Ag
 7. O parser valida a forma da saída.
 8. O Google Sheets executa `appendOrUpdate`, usando o nome do arquivo como chave, o que reduz duplicações em reprocessamentos.
 
-![Workflow 1 - Processamento de apólices](img/workflow01_pt.png)
+![Workflow 1 - Processamento de apólices](img/workflow01_pt_peq.png)
 
 ### 5.3 Consulta e comparação - Workflow 2
 
@@ -159,7 +162,7 @@ Para precisão arquitetural, apenas o workflow de consulta utiliza o nó **AI Ag
 4. O modelo interpreta as linhas retornadas e responde em português.
 5. Para uma comparação, o usuário pode pedir diferenças de limite e vigência entre duas ou mais apólices processadas.
 
-![Workflow 2 - Assistente de comparação](img/workflow02_pt.png)
+![Workflow 2 - Assistente de comparação](img/workflow02_pt_peq.png)
 
 ## 6. Modelo de dados e contrato entre componentes
 
