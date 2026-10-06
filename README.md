@@ -169,7 +169,7 @@ A arquitetura adota uma abordagem em camadas com separação clara de responsabi
    ```bash
    git clone https://github.com/RAguiarEng/n8n-policy-comparator.git
    ```
-2. Abra o arquivo `config.js` e insira as URLs dos webhooks de produção geradas pelo n8n:
+2. Crie o arquivo `config.js`, conforme `config_example.js`, e insira as URLs dos webhooks de produção geradas pelo n8n:
    ```javascript
    const AppConfig = {
        googleDriveUrl: "https://SEU_N8N/form/SEU_FORM_ID",
@@ -196,19 +196,14 @@ n8n-policy-comparator/
 │   ├── workflow01_pt.png
 │   ├── workflow02_pt.png
 │   └── workflow03_pt.png
-├── local_docs/                   # Especificações, propostas e apólices de teste
-│   ├── Apolice_Alfa.pdf
-│   ├── Apolice_Beta.pdf
-│   ├── Apolice_Beta.png
-│   └── descricao_projeto_final.md
 ├── workflows/                    # Workflows exportados do n8n em JSON
 │   ├── workflow01.json           # Workflow 1: Ingestão, OCR e Estruturação
 │   ├── workflow02.json           # Workflow 2: Assistente de Consulta e Comparação
 │   └── workflow03.json           # Workflow 3: Upload de Apólices
-└── Projeto_Final_Artefatos/      # Artefatos obrigatórios de conclusão do curso
-    ├── InsurMinds_Projeto_Final.pptx   # Apresentação Pitch Deck
-    ├── InsurMinds_Projeto_Final.mp4    # Vídeo demonstrativo (máx. 5 min)
-    └── Relatorio_Tecnico_GenAI_Seguros.pdf # Relatório técnico em PDF
+└── issues/                       # Artefatos obrigatórios de conclusão do curso
+    ├── InsurMinds_Projeto_Final.pptx           # Apresentação Pitch Deck
+    ├── InsurMinds_Projeto_Final.mp4            # Vídeo demonstrativo (máx. 5 min)
+    └── Relatorio_Tecnico_GenAI_Seguros.pdf     # Relatório técnico em PDF
 ```
 
 ---
