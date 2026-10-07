@@ -10,8 +10,8 @@
 > **Projeto de Conclusão de Curso - InsurMinds / I2A2 (Instituto de Inteligência Artificial Aplicada)**  
 > 🔗 **[Acessar a Aplicação Web em Produção](https://raguiareng.github.io/n8n-policy-comparator/)**   
 > 📄 **[Relatório Técnico Completo](technical_report.md)**   
-> 🧑‍💻 **[Apresentação](artefatos/InsurMinds_Projeto_Final.pptx)**   
-> 📹 **[Vídeo Demonstrativo](artefatos/InsurMinds_Projeto_Final.mp4)** 
+> 🧑‍💻 **[Apresentação](Projeto_Final_Artefatos/InsurMinds_Projeto_Final.pptx)**   
+> 📹 **[Vídeo Demonstrativo](Projeto_Final_Artefatos/InsurMinds_Projeto_Final.mp4)** 
 
 ---
 
@@ -202,7 +202,7 @@ n8n-policy-comparator/
 │   ├── workflow01.json           # Workflow 1: Ingestão, OCR e Estruturação
 │   ├── workflow02.json           # Workflow 2: Assistente de Consulta e Comparação
 │   └── workflow03.json           # Workflow 3: Upload de Apólices
-└── artefatos/                    # Artefatos obrigatórios de conclusão do curso
+└── Projeto_Final_Artefatos/      # Artefatos obrigatórios de conclusão do curso
     ├── InsurMinds_Projeto_Final.pptx                    # Apresentação Pitch Deck
     ├── InsurMinds_Projeto_Final.mp4                     # Vídeo demonstrativo (máx. 5 min)
     └── GenAI_Seguros_InsurMinds_Projeto_Final.pdf       # Relatório técnico em PDF
