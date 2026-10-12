@@ -7,7 +7,7 @@
 **Data:** 5 de outubro de 2026  
 **Repositório público:** [https://github.com/RAguiarEng/n8n-policy-comparator](https://github.com/RAguiarEng/n8n-policy-comparator)  
 **Aplicação web em produção:** [https://raguiareng.github.io/n8n-policy-comparator/](https://raguiareng.github.io/n8n-policy-comparator/)
-**Apresentação Pitch Deck `.pptx`**: [InsurMinds_Projeto_Final.pptx](artefatos/InsurMinds_Projeto_Final.pptx)
+**Apresentação Pitch Deck `.pptx`**: [InsurMinds_Projeto_Final.pptx](Projeto_Final_Artefatos/InsurMinds_Projeto_Final.pptx)
 
 **Vídeo Demonstrativo `.mp4`**: [InsurMinds_Projeto_Final.mp4](https://docs.google.com/videos/d/1fa3IZjEfNTuKBnBf14VcjKYzl4_bJVsLcq8zCvDCQug/play)
 
@@ -293,8 +293,10 @@ n8n-policy-comparator/
 |   |-- workflow01_pt.png
 |   |-- workflow02_pt.png
 |   `-- workflow03_pt.png
-`-- output/pdf/
-    `-- Relatorio_Tecnico_GenAI_Seguros.pdf
+`-- Projeto_Final_Artefatos/
+    |-- InsurMinds_Projeto_Final.pptx
+    |-- InsurMinds_Projeto_Final.mp4
+    `-- GenAI_Seguros_InsurMinds_Projeto_Final.pdf
 ```
 
 Os demais entregáveis obrigatórios do curso, como apresentação, vídeo, arquivo ZIP e pasta `Projeto_Final_Artefatos`, devem ser conferidos separadamente antes do envio.
