@@ -1,3 +1,4 @@
 local_docs/
 n8n_props.txt
 md2pdf.py
+config.js
