@@ -5,7 +5,7 @@
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-API-6B46C1?style=flat)
 ![Generative AI](https://img.shields.io/badge/Generative_AI-000000?style=flat&logo=openai&logoColor=white)
 
-🌐 **[🇧🇷](README.md)** | **[EN](README_en.md)**
+🌐 **[🇧🇷](README.md)** | **[🇬🇧](README_en.md)**
 
 # GenAI Seguros - Intelligent Platform for D&O Insurance Policy Analysis and Comparison
 
