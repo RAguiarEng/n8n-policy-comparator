@@ -5,6 +5,8 @@
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-API-6B46C1?style=flat)
 ![Generative AI](https://img.shields.io/badge/Generative_AI-000000?style=flat&logo=openai&logoColor=white)
 
+🌐 **[🇧🇷](README.md)** | **[EN](README_en.md)**
+
 # GenAI Seguros - Plataforma Inteligente para Análise e Comparação de Apólices D&O
 
 > **Projeto de Conclusão de Curso - InsurMinds / I2A2 (Instituto de Inteligência Artificial Aplicada)**  
