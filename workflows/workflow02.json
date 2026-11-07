@@ -13,7 +13,7 @@
         -432,
         -32
       ],
-      "id": "6d74300c-9254-450e-983c-0597a9d54d3c",
+      "id": "ID_NODE",
       "name": "When chat message received",
       "webhookId": "SEU_WEBHOOK_ID_AQUI"
     },
@@ -29,7 +29,7 @@
         -144,
         -32
       ],
-      "id": "85019aa8-f1be-4ded-ac27-c785277a77ee",
+      "id": "ID_NODE",
       "name": "AI Agent"
     },
     {
@@ -43,11 +43,11 @@
         -240,
         176
       ],
-      "id": "ce334be1-6e90-42dc-a656-60ac54f58902",
+      "id": "ID_NODE",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
-          "id": "L6Fl5n5qgKqRZOIa",
+          "id": "APY_KEY",
           "name": "OpenRouter account"
         }
       }
@@ -60,7 +60,7 @@
         -80,
         176
       ],
-      "id": "d9bca6f1-9505-47ee-8f37-6f0fa0fc2ff5",
+      "id": "ID_NODE",
       "name": "Simple Memory"
     },
     {
@@ -86,11 +86,11 @@
         64,
         176
       ],
-      "id": "fdca964a-0043-4566-9f08-7760deaf94e3",
+      "id": "ID_NODE",
       "name": "Get row(s) in sheet in Google Sheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "xCMapW0V8PQYwNFL",
+          "id": "APY_KEY",
           "name": "Google Sheets account"
         }
       }
@@ -148,12 +148,12 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "babd8a1c-a327-4ef0-b1cb-420ec596ae78",
+  "versionId": "ID_VERSION",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+    "instanceId": "ID_INSTANCE"
   },
   "nodeGroups": [],
-  "id": "BdncdsnRqf9HUUuX",
+  "id": "ID_NODE",
   "tags": []
 }
