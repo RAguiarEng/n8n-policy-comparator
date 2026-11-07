@@ -29,11 +29,11 @@
         -528,
         -112
       ],
-      "id": "c4476a8e-5365-4502-907a-3a9b7a00ff34",
+      "id": "ID_NODE",
       "name": "Google Drive Trigger",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "XtwdLk59XP3fLhMu",
+          "id": "ID_GOOGLE_DRIVE",
           "name": "Google Drive account"
         }
       }
@@ -49,7 +49,7 @@
           },
           "conditions": [
             {
-              "id": "eb569553-cd95-438b-9db8-c66fca9ce8bc",
+              "id": "ID_PDF",
               "leftValue": "={{ $json.mimeType }}",
               "rightValue": "application/pdf",
               "operator": {
@@ -58,7 +58,7 @@
               }
             },
             {
-              "id": "045f4429-5f5e-4722-ad1b-357d3a97f7ce",
+              "id": "ID_IMAGE_JPG",
               "leftValue": "={{ $json.mimeType }}",
               "rightValue": "image/jpeg",
               "operator": {
@@ -68,7 +68,7 @@
               }
             },
             {
-              "id": "55313556-5509-46ac-a8fc-33321c43db95",
+              "id": "ID_IMAGE_PNG",
               "leftValue": "={{ $json.mimeType }}",
               "rightValue": "image/png",
               "operator": {
@@ -78,7 +78,7 @@
               }
             },
             {
-              "id": "681018f4-8b5e-4d03-a36e-d5983f2ec5f2",
+              "id": "ID_IMAGE_TIFF",
               "leftValue": "={{ $json.mimeType }}",
               "rightValue": "image/tiff",
               "operator": {
@@ -98,7 +98,7 @@
         -320,
         -112
       ],
-      "id": "785bb8bc-d7c2-4eee-a20a-41275a75f713",
+      "id": "ID_NODE",
       "name": "If"
     },
     {
@@ -109,7 +109,7 @@
         -32,
         32
       ],
-      "id": "972004c1-d1cd-4f3b-96c8-00e24b4e91da",
+      "id": "ID_NODE",
       "name": "No Operation, do nothing"
     },
     {
@@ -128,11 +128,11 @@
         -32,
         -176
       ],
-      "id": "fcf8b30b-d091-4ce6-a269-9f441099f5f6",
+      "id": "ID_NODE",
       "name": "Download file",
       "credentials": {
         "googleDriveOAuth2Api": {
-          "id": "XtwdLk59XP3fLhMu",
+          "id": "ID_GOOGLE_DRIVE",
           "name": "Google Drive account"
         }
       }
@@ -140,7 +140,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.ocr.space/parse/image",
+        "url": "URL_POST",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
@@ -162,11 +162,11 @@
         192,
         -176
       ],
-      "id": "d1b5d745-ce64-4ac9-93ca-6515f659ac26",
+      "id": "ID_NODE",
       "name": "HTTP Request",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "6OTko2mxJeKnvcSK",
+          "id": "ID_AUTH",
           "name": "Header Auth account"
         }
       }
@@ -181,7 +181,7 @@
         416,
         -176
       ],
-      "id": "778abe34-d76a-4d74-b74d-6810abbfe6fa",
+      "id": "ID_NODE",
       "name": "Code in JavaScript"
     },
     {
@@ -197,7 +197,7 @@
         688,
         -176
       ],
-      "id": "57737a2a-fffe-47a4-83f9-32e746b59e12",
+      "id": "ID_NODE",
       "name": "Basic LLM Chain"
     },
     {
@@ -215,7 +215,7 @@
         688,
         16
       ],
-      "id": "f6444615-2c6a-411d-bdee-3c0dbec34e45",
+      "id": "ID_NODE",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
@@ -234,7 +234,7 @@
         832,
         16
       ],
-      "id": "4b24c918-3170-4142-80f4-ec5409c26a6b",
+      "id": "ID_NODE",
       "name": "Structured Output Parser"
     },
     {
@@ -325,11 +325,11 @@
         1072,
         -176
       ],
-      "id": "83a66815-d823-4c3a-a1df-d2c5b5ff382d",
+      "id": "ID_NODE",
       "name": "Append or update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "xCMapW0V8PQYwNFL",
+          "id": "ID_GOOGLE_DRIVE",
           "name": "Google Sheets account"
         }
       }
@@ -444,12 +444,12 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "f6a255ff-46fd-4587-b6f8-71e79fb4cf0b",
+  "versionId": "ID_VERSION",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "13ae4cf46e2e4b7b93832dde92aa81fc52d47914996ae398a3e95ea2a8712cf5"
+    "instanceId": "ID_INSTANCE"
   },
   "nodeGroups": [],
-  "id": "IVwCwDeVeyfbSs9v",
+  "id": "ID_NODE",
   "tags": []
 }
