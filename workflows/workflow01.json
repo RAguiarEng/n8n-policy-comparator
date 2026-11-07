@@ -219,7 +219,7 @@
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
-          "id": "L6Fl5n5qgKqRZOIa",
+          "id": "API_KEY",
           "name": "OpenRouter account"
         }
       }
