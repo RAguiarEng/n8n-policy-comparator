@@ -95,7 +95,7 @@ The architecture adopts a multi-tiered approach enforcing Separation of Concerns
              ├─► AI Agent + Window Buffer Memory (5 interaction history)
              ├─► Tool Calling: Google Sheets Tool (Reads from "Dados" tab)
              └─► Natural Language comparative response formatted in Markdown
-
+```
 ---
 
 ## 🔄 n8n Workflows
